@@ -51,11 +51,11 @@ css版本
 
 ```css
 div{
-	width: 100px
-	background-color: blue;
+  width: 100px
+  background-color: blue;
 }
 div .yellow-bg{
-	background-color: yellow;
+  background-color: yellow;
 }
 ```
 
@@ -63,11 +63,11 @@ div .yellow-bg{
 
 ```sass
 div
-	width: 100px
-	background-color: blue
-	
-	.yellow-bg
-		background-color: uellow
+  width: 100px
+  background-color: blue
+		
+  .yellow-bg
+    background-color: uellow
 ```
 這裡我們可以看到 Sass 以 tab 或者是空白來定義範圍的特性，注意，空白與 tab 不可以混用，比如說在 div 中的 width 前使用了 tab ，卻在 div 中的 background-color 前使用四個空白鍵，即使視覺上看來縮排一樣，如此的做法卻會造成編譯錯誤（sublime 中可以反白整個段落檢查，tab會在反白中呈現一條線，空格則是一個點）
 
@@ -80,17 +80,17 @@ css版本
 
 ```css
 div{
-	width: 200px;
+  width: 200px;
 }
 div.yellow-bg{
-	background-color: yellow;
-	opacity: 0.5;
+  background-color: yellow;
+  opacity: 0.5;
 }
 div.yellow-bg.large-width{
-	width: 100vw;
+  width: 100vw;
 }
 div.yellow-bg:hover{
-	opacity: 1;
+  opacity: 1;
 }
 ```
 
@@ -98,14 +98,14 @@ div.yellow-bg:hover{
 
 ```sass
 div
-	width: 200px
-	&.yellow-bg
-		backgeound-color: yellow
-		opacity: 0.5
-		&.large-width
-			width: 100vw
-		&:hover
-			opacity: 1
+  width: 200px
+  &.yellow-bg
+    backgeound-color: yellow
+    opacity: 0.5
+    &.large-width
+      width: 100vw
+    &:hover
+      opacity: 1
 ```
 我們可以由上述的範例程式碼中觀察到，程式碼中的 & 就代表了上一層的選擇，比如 .yellow-bg 前的 ＆ 就代表了上一層的 div ，如此一來，我們便可以使用＆來選擇 class 是 yellow-bg 的 div 了。
 
@@ -120,9 +120,9 @@ $mobile-width: 480px
 $primary-font: 'sans-serif', 'Roboto, arial'
 
 .test
-	color: $blue
-	widht: $mobile-width
-	font-family: $primary-font
+  color: $blue
+  widht: $mobile-width
+  font-family: $primary-font
 ```
 
 ## 可以定義函式 
@@ -131,80 +131,80 @@ $primary-font: 'sans-serif', 'Roboto, arial'
 有時在 css 中，常常會有一連串相配合的屬性會設定，但只是使用的變數不太一樣，比如說，當我們在使用 css 製作動畫時，常常會使用到 transition 這個屬性，但是考慮到瀏覽器的兼容性，我們可能會再多設定幾個相關的的屬性，而在這些屬性上只有動畫秒數這一項，我們希望是可以變動的，因此，我們可以對照一下一般css的寫法以及sass的寫法。
 
 ```css
-	.div1{
-		-webkit-transition: all 2s ease-in-out; /* Safari 3.1 to 6.0 */
-    	transition: all 2s ease-in-out;
-   }
-   .div2{
-   		-webkit-transition: all 3s linear; /* Safari 3.1 to 6.0 */
-    	transition: all 3s linear;
-   } 
+  .div1{
+    -webkit-transition: all 2s ease-in-out; /* Safari 3.1 to 6.0 */
+    transition: all 2s ease-in-out;
+  }
+  .div2{
+    -webkit-transition: all 3s linear; /* Safari 3.1 to 6.0 */
+    transition: all 3s linear;
+  } 
 ```
 如果是使用css的話，我們就可以定義一個 Mixin 來實現一樣的功能
 
 ```sass
-	@mixin animation($duration, $type)
-		-webkit-transition: all $duration $type /* Safari 3.1 to 6.0 */
-    	transition: all $duration $type
-	
-	div1
-		@include animation;
-	div2
-		@include animation;
+@mixin animation($duration, $type)
+  -webkit-transition: all $duration $type /* Safari 3.1 to 6.0 */
+  transition: all $duration $type
+
+div1
+  @include animation;
+div2
+  @include animation;
 ```
 
 ### Function
 我們可以透過 function 來計算出我們想要的數值，比如我們有10個相連的div，而我希望這10個div的width可以從10%到100%慢慢的遞增，如果是一般css我們會寫得像是這樣
 
 ```css
-	.div1{ width: 10%; }
-	.div2{ width: 20%; }
-	.div3{ width: 30%; }
-	.div4{ width: 40%; }
-	.div5{ width: 50%; }
-	.div6{ width: 60%; }
-	.div7{ width: 70%; }
-	.div8{ width: 80%; }
-	.div9{ width: 90%; }
-	.div10{ width: 100%; }
+.div1{ width: 10%; }
+.div2{ width: 20%; }
+.div3{ width: 30%; }
+.div4{ width: 40%; }
+.div5{ width: 50%; }
+.div6{ width: 60%; }
+.div7{ width: 70%; }
+.div8{ width: 80%; }
+.div9{ width: 90%; }
+.div10{ width: 100%; }
 ```
 
 但若是使用function的話，我們則可以利用sass寫成像是下面這樣
 
 ``` sass
-	@function div_width($i)
-		@return percentage($i/10)
-	.div1 
-		width: div_width(1)
-	.div2 
-		width: div_width(2)
-	.div3 
-		width: div_width(3)
-	.div4 
-		width: div_width(4)
-	.div5 
-		width: div_width(5)
-	.div6 
-		width: div_width(6)
-	.div7 
-		width: div_width(7)
-	.div8
-		width: div_width(8)
-	.div9 
-		width: div_width(9)
-	.div10 
-		width: div_width(10)
+@function div_width($i)
+  @return percentage($i/10)
+.div1 
+  width: div_width(1)
+.div2 
+  width: div_width(2)
+.div3 
+  width: div_width(3)
+.div4 
+  width: div_width(4)
+.div5 
+  width: div_width(5)
+.div6 
+  width: div_width(6)
+.div7 
+  width: div_width(7)
+.div8
+  width: div_width(8)
+.div9 
+  width: div_width(9)
+.div10 
+  width: div_width(10)
 ```
 
 到目前為止，sass的寫法似乎沒有比較簡單易寫，但在sass中也定義了許多一般程式語言擁有的常用宣告，比如說是if-else或者是我們接下來要用的for loop，若是我們將上面這一段加上for loop的話，看起來就會像是
 
 ```sass
-	@function div_width($i)
-		@return percentage($i/10)
-		
-	@for $i from 1 through 10
-		.div#{$i}
-			width: div_width($i)
+@function div_width($i)
+  @return percentage($i/10)
+	
+@for $i from 1 through 10
+  .div#{$i}
+    width: div_width($i)
 ```
 
 ##結語
